@@ -53,7 +53,7 @@ def subscribe(client: mqtt_client):
         logging.info(" {0}: Received `{1}` from `{2}` topic".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), msg.payload.decode(), msg.topic))
 
         try:
-            if "homeassistant/climate/zhonghong/" in msg.topic:
+            if "homeassistant/climate/zhonghong2/" in msg.topic:
                 object_id = msg.topic.split('/')[3]
 
                 idx = int(object_id.split('_')[1])
@@ -78,7 +78,7 @@ def subscribe(client: mqtt_client):
                     ac['on'] = 1
                 setAC(ac)
 
-            elif msg.topic == "homeassistant/zhonghong/initialize":
+            elif msg.topic == "homeassistant/zhonghong2/initialize":
                 initializeClimates(client)
         except Exception as e:
             logging.info(" {0}: Exception `{1}`".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), e))
@@ -141,7 +141,7 @@ def initializeClimates(client, node_id = "zhonghong2", component = "climate", di
     global acs
     acs = getACList()
     for ac in acs:
-        object_id = "ac_{0}".format(ac['idx'])
+        object_id = "vrf_ac_{0}".format(ac['idx'])
         # Create Climate
         # removeClimate(object_id)
         createClimate(object_id)
@@ -181,7 +181,7 @@ def createClimate(object_id, name = None, device_class = None, icon = None, temp
         payload["icon"] = icon
     if device_class != None:
         payload["device_class"] = device_class
-    payload["name"] = "zhonghong_{0}".format(object_id)
+    payload["name"] = "zhonghong2_{0}".format(object_id)
     payload["modes"] = [
 		"heat",
 		"cool",
@@ -221,7 +221,7 @@ def syncACList(client, node_id = "zhonghong2", component = "climate", discovery_
     acs_temp = getACList()
     
     for i in range(len(acs)):
-        object_id = "ac_{0}".format(acs[i]['idx'])
+        object_id = "vrf_ac_{0}".format(acs[i]['idx'])
         if acs[i]['on'] != acs_temp[i]['on'] or acs[i]['mode'] != acs_temp[i]['mode']:
             acs[i]['on'] = acs_temp[i]['on']
             acs[i]['mode'] = acs_temp[i]['mode']
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     loadConfig()
     client = connect_mqtt()
     subscribe(client)
-    client.subscribe("homeassistant/zhonghong/initialize")
+    client.subscribe("homeassistant/zhonghong2/initialize")
     client.loop_start()
 
     count = 2
