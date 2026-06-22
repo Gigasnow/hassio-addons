@@ -7,6 +7,6 @@ ADD vrf.py /
 #ADD options.json /data
 
 RUN apk update
-RUN pip3 install requests paho-mqtt
+RUN pip3 install requests paho-mqtt==1.6.1
 
 CMD ["python3","./vrf.py"]
