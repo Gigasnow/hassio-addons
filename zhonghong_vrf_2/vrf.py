@@ -141,7 +141,7 @@ def initializeClimates(client, node_id = "zhonghong2", component = "climate", di
     global acs
     acs = getACList()
     for ac in acs:
-        object_id = "vrf_ac_{0}".format(ac['idx'])
+        object_id = "ac_{0}".format(ac['idx'])
         # Create Climate
         # removeClimate(object_id)
         createClimate(object_id)
@@ -221,7 +221,7 @@ def syncACList(client, node_id = "zhonghong2", component = "climate", discovery_
     acs_temp = getACList()
     
     for i in range(len(acs)):
-        object_id = "vrf_ac_{0}".format(acs[i]['idx'])
+        object_id = "ac_{0}".format(acs[i]['idx'])
         if acs[i]['on'] != acs_temp[i]['on'] or acs[i]['mode'] != acs_temp[i]['mode']:
             acs[i]['on'] = acs_temp[i]['on']
             acs[i]['mode'] = acs_temp[i]['mode']
