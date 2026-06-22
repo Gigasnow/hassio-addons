@@ -38,7 +38,10 @@ def connect_mqtt() -> mqtt_client:
         else:
             logging.info(" {0}: Failed to connect, return code {1}\n".format(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))), rc)
     client_id = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
-    client = mqtt_client.Client(client_id)
+    client = mqtt_client.Client(
+    	callback_api_version=mqtt_client.CallbackAPIVersion.VERSION1,
+    	client_id=client_id
+	)
     client.username_pw_set(username=CONFIG['username'], password=CONFIG['password'])
     client.on_connect = on_connect
     client.connect(CONFIG['broker'], int(CONFIG['port']))
