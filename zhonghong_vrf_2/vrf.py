@@ -162,11 +162,11 @@ def initializeClimates(client, node_id = "zhonghong2", component = "climate", di
 
 def createClimate(object_id, name = None, device_class = None, icon = None, temperature_unit = "C", node_id = "zhonghong2", component = "climate", discovery_prefix = "homeassistant"):
     device = {}
-    device["identifiers"] = ["ZhongHong VRF"]
-    device["name"] = "ZhongHong VRF"
+    device["identifiers"] = ["ZhongHong VRF 2"]
+    device["name"] = "ZhongHong VRF 2"
     device["manufacturer"] = "xswxm"
-    device["model"] = "V100"
-    device["sw_version"] = "0.3.0"
+    device["model"] = "V200"
+    device["sw_version"] = "0.4.0"
     
     topic = "{0}/{1}/{2}/{3}/config".format(discovery_prefix, component, node_id, object_id)
 
